@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,13 +8,13 @@
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <link rel="shortcut icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
-        <link rel="icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
+        <link rel="shortcut icon" href="{% static 'chat/favicon.ico' %}" type="image/x-icon">
+        <link rel="icon" href="{% static 'chat/favicon.ico' %}" type="image/x-icon">
 
-        <link rel="stylesheet" href="{% static 'chatbot_tutorial/bootstrap/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'chatbot_tutorial/css/chat.css' %}">
+        <link rel="stylesheet" href="{% static 'chat/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'chat/css/chat.css' %}">
        
-        <link href="{% static 'chatbot_tutorial/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'chat/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <base target="_blank"/>
         <title>Websockets Bot</title>
@@ -110,8 +110,8 @@
 
         </script>
 
-        <script src="{% static 'chatbot_tutorial/js/reconnecting-websocket.min.js' %}" type="text/javascript" charset="utf-8"></script>
-        <script src="{% static 'chatbot_tutorial/js/internal-chatbox.js' %}" type="text/javascript" charset="utf-8"></script>
+        <script src="{% static 'chat/js/reconnecting-websocket.min.js' %}" type="text/javascript" charset="utf-8"></script>
+        <script src="{% static 'chat/js/internal-chatbox.js' %}" type="text/javascript" charset="utf-8"></script>
 
         <script type="text/javascript">
 
@@ -127,7 +127,7 @@
             var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 
             // Calls the websocket connect channel
-            var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat/stream/test-chat");
+            var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/ws/chat/stream/test-chat");
 
 
             $("#messageToSend").keypress(function (e) {
@@ -150,6 +150,7 @@
                 chatsock.send(JSON.stringify(message)); // START TALKING!
             }
             chatsock.onmessage = function(message){
+                console.log("onmessage")
                 processAndDisplayChatMessage(message);
             };
 

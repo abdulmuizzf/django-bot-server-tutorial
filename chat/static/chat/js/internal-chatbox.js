@@ -51,6 +51,7 @@ function sendTextMessage() {
     
     
     $('#messageToSend').text('');
+	console.log("here");
 	chatsock.send(JSON.stringify(message));
 	$("#message").val('').focus();
     return false;   
