@@ -70,9 +70,9 @@ body {
 }
 #send-box{
     padding-top: 10px;
-    padding-left: 10px;
+    padding-left: 30vw;
     padding-bottom: 10px;
-    padding-right: 10px;
+    padding-right: 30vw;
     background-color:#FFFFFF;
     height:auto;
     width:100%;
@@ -102,40 +102,7 @@ body {
     display:block;
     opacity:0.4;
 }
-#messageToSend {
-    font-size: 14px;
-    color:#000000;
-    border: 0px;
-    min-height:22px;
-    max-height: 62px;
-    overflow-y:hidden;
-    outline:none;
-    padding-top:0px;
-    padding-bottom:0px;
-    padding-right:40px;
-    margin:0px;
-    width:100%;
-}
 
-.send-button-div{
-    text-align:right;
-    line-height : normal;
-    position:absolute;
-    right:15px;
-    margin-top:-6px;
-}
-
-#messageSendButton {
-
-    background-color:#FFFFFF;
-    color:none;
-    border: 0px;
-    padding :0px;
-    font-family:Glyphs;
-    font-size:26px;
-    line-height:normal;
-    outline:none;
-}
 .user-msg-bubble{
 font-size: 10px;
     margin-top: -20px;

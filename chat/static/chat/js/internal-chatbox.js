@@ -39,19 +39,13 @@ function processAndDisplayChatMessage(message){
 }
 
 
-function sendTextMessage() {
-    if ($('#messageToSend').text() == "") {
-        return
-    }
+function sendTextMessage(selection) {
 
     message = {}
-    message.text = $('#messageToSend').html().replace("</div>", "").replace("<div>", "\n").replace("<br>", "\n");
+    message.text = selection;
     message.command= 'send'
     message.timestamp = new Date();
     
-    
-    $('#messageToSend').text('');
-	console.log("here");
 	chatsock.send(JSON.stringify(message));
 	$("#message").val('').focus();
     return false;   
