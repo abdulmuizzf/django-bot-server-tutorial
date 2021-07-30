@@ -9,7 +9,9 @@ class ChatConsumer(WebsocketConsumer):
         self.accept()
 
     def disconnect(self, close_code):
-        pass
+        user = self.scope['user']
+        user.active = False
+        user.save()
 
     def receive(self, text_data):
         payload = json.loads(text_data)
