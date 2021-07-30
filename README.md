@@ -1,3 +1,26 @@
+# Preview
+
+## Login Page
+![image](https://user-images.githubusercontent.com/26377024/127664677-1516a101-5314-47ed-b2f1-308a885fdc4e.png)
+
+When another user attempts to login with the same username
+
+![image](https://user-images.githubusercontent.com/26377024/127664439-6c95fba3-e65c-4cfc-bdf6-e00b7b147d63.png)
+
+## Chatbot
+
+![image](https://user-images.githubusercontent.com/26377024/127665082-8321a5be-4902-46af-8494-9424962298b4.png)
+
+## Logs
+
+![image](https://user-images.githubusercontent.com/26377024/127665571-f9ba5317-8f61-43ee-80b9-9329e8cd208e.png)
+  
+   
+   
+      
+    
+---
+
 # django-bot-server-tutorial
 
 Accompanying repository for a seminar on creating a django based bot server that uses django-channels for  WebSockets connection. This borrows heavily from the code at https://github.com/andrewgodwin/channels-examples 
