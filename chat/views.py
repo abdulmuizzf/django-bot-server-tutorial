@@ -25,8 +25,8 @@ def login(request):
                 context['error'] = f"Username '{username}' is already taken. Please try another one."
                 return render(request, 'chat/login.html', context)
             
-            user.active = True
-            user.save()
+            user.active = True          # Locks user instance to prevent other users 
+            user.save()                 # from logging in with the same name
             session_login(request, user)
             return redirect(request.GET.get("next", reverse('chat')))
 
@@ -34,15 +34,36 @@ def login(request):
 
 @login_required
 def chat(request):
+    """
+    Main chatbot view
+    """
     return render(request, 'chat/chatbot.html')
 
+@login_required
+def logs(request):
+    """
+    Displays table of users and number of calls made
+    for each joke category
+    """
+    context = {
+        'bot_history': BotHistory.objects.all()
+    }
+    return render(request, 'chat/logs.html', context)
+
 def logout(request):
+    """
+    Unlocks username and logs out
+    """
     request.user.active = False
     request.user.save()
     session_logout(request)
     return HttpResponseRedirect(reverse('login'))
     
 def respond_to_websockets(message, user):
+    """
+    Responds with a random joke based on category
+    Logs count of calls made by user for each category
+    """
     jokes = {
      'stupid': ["""Yo' Mama is so stupid, she needs a recipe to make ice cubes.""",
                 """Yo' Mama is so stupid, she thinks DNA is the National Dyslexics Association."""],

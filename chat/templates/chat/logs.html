@@ -1,0 +1,57 @@
+{% extends 'chat/base.html' %}
+{% load static %}
+
+{% block body %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="{% url 'chat' %}">Chat</a></li>
+                <li class="active"i><a href="#">Logs<span class="sr-only">(current)</span></a></li>
+            </ul>
+            <div class="nav navbar-nav navbar-right vertical-align">
+                <a class="align-middle" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
+    <!-- Begin page content -->
+    <div class="container-fluid" id="body-container" style="border-bottom: #eee 1px solid;">
+
+        <div id="sub-body-container">
+
+            <div id="messages-container">
+                <table class="table table-bordered bot-history-table">
+                   <tr>
+                       <th>User</th>
+                       <th>Stupid Jokes</th>
+                       <th>Fat Jokes</th>
+                       <th>Dumb Jokes</th>
+                   </tr>
+                    {% for row in bot_history %}
+                        <tr>
+                            <th class="table-item col-xs-2">{{row.user.username}}</th>
+                            <th class="table-item col-xs-1">{{row.stupid_count}}</th>
+                            <th class="table-item col-xs-1">{{row.fat_count}}</th>
+                            <th class="table-item col-xs-1">{{row.dumb_count}}</th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="error-notification alert alert-info" style="display:none;">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="navbar navbar-default navbar-fixed-bottom non-error">
+        <div class="container-fluid botAccentColor" id="bottom-box">
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
