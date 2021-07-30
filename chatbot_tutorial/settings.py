@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-))ers^+0#m$-+5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['*','localhost']
+ALLOWED_HOSTS = ['django-jokebot.herokuapp.com','localhost']
 
 
 # Application definition
