@@ -1,9 +1,46 @@
-from django.shortcuts import render
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth import authenticate, login as session_login, logout as session_logout
+
 import random
 
+def login(request):
+    """
+    Authenticates and logs the user in if username is not already in use
+    """
+    context={
+        'error': None
+    }
+    if request.method=='POST':
+        username = request.POST.get('username','')
+        print(request.POST)
+        user = authenticate(request, username=username)
+        
+        if user:
+            if user.active == True:
+                context['error'] = f"Username '{username}' is already taken. Please try another one."
+                return render(request, 'chat/login.html', context)
+            
+            user.active = True
+            user.save()
+            session_login(request, user)
+            return redirect(request.GET.get("next", reverse('chat')))
+
+    return render(request, 'chat/login.html', context)
+
+@login_required
 def chat(request):
     return render(request, 'chat/chatbot.html')
 
+def logout(request):
+    request.user.active = False
+    request.user.save()
+    session_logout(request)
+    return HttpResponseRedirect(reverse('login'))
+    
 def respond_to_websockets(message):
     jokes = {
      'stupid': ["""Yo' Mama is so stupid, she needs a recipe to make ice cubes.""",

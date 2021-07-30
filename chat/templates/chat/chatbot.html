@@ -2,6 +2,20 @@
 {% load static %}
 
 {% block body %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="#">Chat<span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Logs</a></li>
+            </ul>
+            <div class="nav navbar-nav navbar-right vertical-align">
+                <a class="align-middle" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <div id="wrap" class="BotMainDiv" ng-controller="ChatCtrl">
     <!-- Begin page content -->
     <div class="container-fluid" id="body-container" style="border-bottom: #eee 1px solid;">
