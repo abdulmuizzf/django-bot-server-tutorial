@@ -26,6 +26,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def chat_send(self, event):
         message = event['payload']
+        user = self.scope['user']
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
@@ -33,7 +34,7 @@ class ChatConsumer(WebsocketConsumer):
             'text': message['text'],
             'source': 'CANDIDATE'
         }))
-        response = respond_to_websockets(message)
+        response = respond_to_websockets(message, user)
 
         response['source'] = 'BOT'
         self.send(text_data=json.dumps(response))

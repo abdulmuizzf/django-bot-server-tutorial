@@ -2,8 +2,9 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth import authenticate, login as session_login, logout as session_logout
+
+from .models import BotHistory
 
 import random
 
@@ -41,7 +42,7 @@ def logout(request):
     session_logout(request)
     return HttpResponseRedirect(reverse('login'))
     
-def respond_to_websockets(message):
+def respond_to_websockets(message, user):
     jokes = {
      'stupid': ["""Yo' Mama is so stupid, she needs a recipe to make ice cubes.""",
                 """Yo' Mama is so stupid, she thinks DNA is the National Dyslexics Association."""],
@@ -54,18 +55,29 @@ def respond_to_websockets(message):
     result_message = {
         'type': 'text'
     }
+    
+    try:
+        user_history = BotHistory.objects.get(user__username=user.username)
+    except BotHistory.DoesNotExist:
+        user_history = BotHistory.objects.create(user=user)
+
     if 'fat' in message['text']:
         result_message['text'] = random.choice(jokes['fat'])
+        user_history.fat_count += 1
     
     elif 'stupid' in message['text']:
         result_message['text'] = random.choice(jokes['stupid'])
+        user_history.stupid_count += 1
     
     elif 'dumb' in message['text']:
         result_message['text'] = random.choice(jokes['dumb'])
+        user_history.dumb_count += 1
 
     elif message['text'] in ['hi', 'hey', 'hello']:
         result_message['text'] = "Hello to you too! If you're interested in yo mama jokes, just tell me fat, stupid or dumb and i'll tell you an appropriate joke."
     else:
         result_message['text'] = "I don't know any responses for that. If you're interested in yo mama jokes tell me fat, stupid or dumb."
+
+    user_history.save()
 
     return result_message
